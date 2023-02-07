@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('commentable', function (Blueprint $table) {
             $table->id();
             $table->string('Body');
-            //categoryId
+            //categoryId 
+            $table->unsignedInteger('Parent_id')->nullable();
             $table->foreignId('category_id')->constrained();
             $table->integer('user_id');
             $table->timestamps();

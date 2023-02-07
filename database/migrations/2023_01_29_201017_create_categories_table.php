@@ -27,7 +27,7 @@ return new class extends Migration
             $table->integer('About');  
             $table->integer('Name');
             $table->integer('Brand');
-            $table->unsignedInteger('Parent_id')->nullable();            //  .. thats not done untill now ..
+            $table->unsignedInteger('Parent_id')->nullable();
             $table->integer('Ordering');
             $table->biginteger('Store_Id');
             
