@@ -14,12 +14,7 @@ return new class extends Migration
             $table->integer('Price')->nullable();
             $table->integer('discount')->nullable();
             $table->foreignId('user_id')->constrained();
-            $table->bigIncrements('ShippingCompany')->unsigned(); //changed this line
-            $table->foreign('ShippingCompany')
-                ->references('id')
-                ->on('ShippinCompanies')
-                ->onDelete('cascade');
-
+            $table->foreignId('shippingcompany')->nullable()->constrained('shipping_companies')->onDelete('set null');
             $table->foreignId('category_id')->constrained();
             $table->string('location')->nullable();
             //you must makke a trans date coulumn
