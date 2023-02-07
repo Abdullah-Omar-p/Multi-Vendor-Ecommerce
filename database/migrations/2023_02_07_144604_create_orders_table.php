@@ -17,8 +17,6 @@ return new class extends Migration
             $table->foreignId('shippingcompany')->nullable()->constrained('shipping_companies')->onDelete('set null');
             $table->foreignId('category_id')->constrained();
             $table->string('location')->nullable();
-            //you must makke a trans date coulumn
-            //how will make a trans date ??
             $table->timestamps();
         });
     }
