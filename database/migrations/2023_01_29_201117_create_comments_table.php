@@ -6,17 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    
     public function up()
     {
         Schema::create('commentable', function (Blueprint $table) {
             $table->id();
             $table->string('Body');
-            //categoryId 
             $table->unsignedInteger('Parent_id')->nullable();
             $table->foreignId('category_id')->constrained();
             $table->integer('user_id');
@@ -24,11 +19,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+    
     public function down()
     {
         Schema::dropIfExists('comments');
