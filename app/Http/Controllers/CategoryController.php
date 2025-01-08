@@ -25,6 +25,7 @@ class CategoryController extends Controller
 
     public function store(StoreCategoryRequest $request)
     {
+        // TODO: make image upload here and in update
         $category = Category::create($request->validated());
         $this->authorize('create', $category);
         return Helper::responseData('Category Added Successfully', true, new CategoryResource($category), Response::HTTP_OK);
