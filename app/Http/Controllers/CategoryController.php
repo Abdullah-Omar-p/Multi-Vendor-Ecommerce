@@ -26,7 +26,6 @@ class CategoryController extends Controller
 
     public function store(StoreCategoryRequest $request)
     {
-        // TODO: make image upload here and in update
         $category = Category::create($request->validated());
         $this->authorize('create', $category);
         if ($request->hasFile('media')) {
