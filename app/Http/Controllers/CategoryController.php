@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Http\Response;
+use App\Http\Controllers\MediaController;
 
 class CategoryController extends Controller
 {
@@ -28,6 +29,10 @@ class CategoryController extends Controller
         // TODO: make image upload here and in update
         $category = Category::create($request->validated());
         $this->authorize('create', $category);
+        if ($request->hasFile('media')) {
+            $mimeType = $request->file('media')->getMimeType();
+            MediaController::saveMedia($request, $mimeType, $category, Category::class);
+        }
         return Helper::responseData('Category Added Successfully', true, new CategoryResource($category), Response::HTTP_OK);
 
     }

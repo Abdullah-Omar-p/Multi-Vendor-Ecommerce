@@ -13,7 +13,7 @@ class MediaController
     {
         $categoriesFolder = public_path('media');
         $de = $request['media'];
-        $imageName = Str::slug($request['media']) . '.' . $de->getClientOriginalExtension();
+        $imageName = Str::uuid($request['media']) . '.' . $de->getClientOriginalExtension();
         $de->move($categoriesFolder, $imageName);
         $image = config('app.url') . '/media/' . $imageName;
         Media::create([
@@ -37,7 +37,7 @@ class MediaController
         // Handle new media file
         $categoriesFolder = public_path('media');
         $de = $request['media'];
-        $imageName = Str::slug($request['media']) . '.' . $de->getClientOriginalExtension();
+        $imageName = Str::uuid($request['media']) . '.' . $de->getClientOriginalExtension();
         $de->move($categoriesFolder, $imageName);
         $image = config('app.url') . '/media/' . $imageName;
         Media::create([
