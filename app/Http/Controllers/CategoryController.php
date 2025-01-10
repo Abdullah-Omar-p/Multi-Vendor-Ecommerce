@@ -48,8 +48,12 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($categoryId);
         $category->update($request->validated());
-        return Helper::responseData('Category Updated', true, CategoryResource::make($category), Response::HTTP_OK);
-
+        if ($request->hasFile('media')) {
+            $mimeType = $request->file('media')->getMimeType();
+            MediaController::updateMedia($request, $mimeType, $category, Category::class, $categoryId);
+        }
+        return Helper::responseData('Category Updated', true, CategoryResource::make($category),
+            Response::HTTP_OK);
     }
 
     public function destroy(int $categoryId)
