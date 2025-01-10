@@ -16,6 +16,7 @@ class UpdateCategoryRequest extends FormRequest
         return [
             'parent_id' => 'nullable|exists:categories,id',
             'name' => 'nullable|string',
+            'media' => 'required|image|max:1024000',
         ];
     }
 
