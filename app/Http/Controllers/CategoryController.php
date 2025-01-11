@@ -8,14 +8,13 @@ use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Http\Response;
-use App\Http\Controllers\MediaController;
 
 class CategoryController extends Controller
 {
     public function list()
     {
         $categoryResources = [];
-        Category::chunk(100, function($categories) use (&$categoryResources) {
+        Category::with('media')->chunk(100, function($categories) use (&$categoryResources) {
             $categoryResources = array_merge($categoryResources, CategoryResource::collection($categories)->toArray(request()));
         });
         if (empty($categoryResources)) {
@@ -38,8 +37,8 @@ class CategoryController extends Controller
 
     public function show(int $categoryId)
     {
-        $category = Category::findOrFail($categoryId);
-//        $this->authorize('show', $category);
+        $category = Category::with('media')->findOrFail($categoryId);
+        $this->authorize('show', $category);
         return Helper::responseData('Category found', true, CategoryResource::make($category), Response::HTTP_OK);
     }
 

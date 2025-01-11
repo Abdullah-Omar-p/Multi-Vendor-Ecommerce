@@ -31,7 +31,7 @@ class CategoryPolicy
 
     public function show(User $user, Category $category = null)
     {
-//        return $user->hasAnyRole('super-admin');
+        return $user->hasAnyRole('super-admin');
         return true;
     }
 

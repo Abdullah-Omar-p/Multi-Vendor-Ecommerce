@@ -13,6 +13,7 @@ class CategoryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'parent_id' => $this->parent_id,
+            'media' => MediaResource::collection($this->whenLoaded('media')), // Eager load media
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
