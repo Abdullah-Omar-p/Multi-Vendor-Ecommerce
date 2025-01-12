@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RolePermissionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -58,3 +59,11 @@ Route::prefix('category')->middleware('auth:sanctum')->group(function (){
     Route::post('update/{categoryId}', [CategoryController::class, 'update']);
     Route::get('delete/{id}',[CategoryController::class, 'destroy']);
 });
+Route::prefix('comment')->middleware('auth:sanctum')->group(function () {
+    Route::get('/', [CommentController::class, 'list']); // List all comments
+    Route::post('create', [CommentController::class, 'store']); // Create a comment
+    Route::get('find/{commentId}', [CommentController::class, 'show']); // Show a specific comment
+    Route::post('update/{commentId}', [CommentController::class, 'update']); // Update a comment
+    Route::get('delete/{commentId}', [CommentController::class, 'destroy']); // Delete a comment
+});
+

@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->string('body', 500);
-            $table->enum('type', [1/*question*/, 2/*rate*/,3 /*reply to question*/])->nullable();
+            $table->string('content', 500);
             $table->unsignedInteger('parent_id')->nullable();
             $table->foreignId('product_id')->constrained()->nullable()->onDelete('cascade');
             $table->float('rate')->nullable();
