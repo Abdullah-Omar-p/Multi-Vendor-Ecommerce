@@ -15,7 +15,7 @@ class OfferFactory extends Factory
             'price' => fake()->numberBetween(10, 300),
             'name' => fake()->name(),
             'about' => fake()->text,
-            'custom' => fake()->randomElement([0, 1]),
+            'custom' => fake()->randomElement(['public', 'for customers']),
             'status' => fake()->randomElement(['active', 'inactive']),
             'no_pieces' => fake()->numberBetween(1, 10),
             'store_id' => $store_id,

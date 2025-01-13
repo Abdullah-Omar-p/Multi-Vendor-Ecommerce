@@ -14,7 +14,13 @@ class UpdateOfferRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'price' => 'nullable|integer',
+            'name' => 'nullable|string',
+            'about' => 'nullable|string',
+            'no_pieces' => 'nullable|integer',
+            'store_id' => 'nullable|exists:stores,id',
+            'custom' => 'nullable|in:public,for customers',
+
         ];
     }
 

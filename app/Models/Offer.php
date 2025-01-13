@@ -28,4 +28,9 @@ class Offer extends Model
     {
         return $this->belongsToMany(User::class, 'offer_users');
     }
+
+    public function media()
+    {
+        return $this->morphMany(Media::class, 'mediaable');
+    }
 }

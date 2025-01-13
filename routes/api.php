@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\RolePermissionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -60,10 +61,18 @@ Route::prefix('category')->middleware('auth:sanctum')->group(function (){
     Route::get('delete/{id}',[CategoryController::class, 'destroy']);
 });
 Route::prefix('comment')->middleware('auth:sanctum')->group(function () {
-    Route::get('/', [CommentController::class, 'list']); // List all comments
-    Route::post('create', [CommentController::class, 'store']); // Create a comment
-    Route::get('find/{commentId}', [CommentController::class, 'show']); // Show a specific comment
-    Route::post('update/{commentId}', [CommentController::class, 'update']); // Update a comment
-    Route::get('delete/{commentId}', [CommentController::class, 'destroy']); // Delete a comment
+    Route::get('/', [CommentController::class, 'list']);
+    Route::post('create', [CommentController::class, 'store']);
+    Route::get('find/{commentId}', [CommentController::class, 'show']);
+    Route::post('update/{commentId}', [CommentController::class, 'update']);
+    Route::get('delete/{commentId}', [CommentController::class, 'destroy']);
+});
+
+Route::prefix('offer')->middleware('auth:sanctum')->group(function () {
+    Route::get('/', [OfferController::class, 'list']);
+    Route::post('create', [OfferController::class, 'store']);
+    Route::get('find/{offerId}', [OfferController::class, 'show']);
+    Route::post('update/{offerId}', [OfferController::class, 'update']);
+    Route::get('delete/{offerId}', [OfferController::class, 'destroy']);
 });
 

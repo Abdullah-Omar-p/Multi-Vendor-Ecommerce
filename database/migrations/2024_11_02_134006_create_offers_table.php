@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('price')->nullable();
             $table->string('name')->nullable();
             $table->string('about')->nullable();
-            $table->tinyInteger('custom')->nullable();// this to know if offer for public = 0 or for customers = 1
+            $table->enum('custom',['public','for customers'])->nullable();// this to know if offer for public = 0 or for customers = 1
             $table->enum('status',['active','inactive'])->nullable();
             $table->tinyInteger('no_pieces')->nullable(); // that used when offer contains just one product but many pieces , then this be the number of pieces
             $table->foreignId('store_id')->constrained()->onDelete('cascade');

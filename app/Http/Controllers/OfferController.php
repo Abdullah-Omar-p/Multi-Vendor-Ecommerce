@@ -2,65 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
+use App\Http\Resources\OfferResource;
 use App\Models\Offer;
 use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
+use Illuminate\Http\Response;
 
 class OfferController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function list()
     {
-        //
+        $offerResources = [];
+        Offer::with('media')->chunk(100, function ($offers) use (&$offerResources) {
+            $offerResources = array_merge($offerResources, OfferResource::collection($offers)->toArray(request()));
+        });
+        if (empty($offerResources)) {
+            return Helper::responseData('No Offers Found', false, null, 404);
+        }
+        return Helper::responseData('Offers found', true, $offerResources, Response::HTTP_OK);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreOfferRequest $request)
     {
-        //
+        $input = $request;
+        $input ['status'] = 'active';
+        $offer = Offer::create($input->validated());
+        $this->authorize('create', $offer);
+        if ($input->hasFile('media')) {
+            $mimeType = $request->file('media')->getMimeType();
+            MediaController::saveMedia($request, $mimeType, $offer, Offer::class);
+        }
+        return Helper::responseData('Offer Added Successfully', true, new OfferResource($offer), Response::HTTP_OK);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Offer $offer)
+    public function show(int $offerId)
     {
-        //
+        $offer = Offer::with('media')->findOrFail($offerId);
+        $this->authorize('show', $offer);
+        return Helper::responseData('Offer found', true, OfferResource::make($offer), Response::HTTP_OK);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Offer $offer)
+    public function update(UpdateOfferRequest $request, int $offerId)
     {
-        //
+        $offer = Offer::findOrFail($offerId);
+        $offer->update($request->validated());
+        if ($request->hasFile('media')) {
+            $mimeType = $request->file('media')->getMimeType();
+            MediaController::updateMedia($request, $mimeType, $offer, Offer::class, $offerId);
+        }
+        return Helper::responseData('Offer Updated', true, OfferResource::make($offer), Response::HTTP_OK);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateOfferRequest $request, Offer $offer)
+    public function destroy(int $offerId)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Offer $offer)
-    {
-        //
+        $offer = Offer::findOrFail($offerId);
+        $offer->delete();
+        return Helper::responseData('Offer Deleted', true, null, Response::HTTP_OK);
     }
 }
