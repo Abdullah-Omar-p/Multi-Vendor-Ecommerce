@@ -30,4 +30,10 @@ class Product extends Model
         'category_id',
         'added_by',
     ];
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_products')->withTimestamps();
+    }
+
 }

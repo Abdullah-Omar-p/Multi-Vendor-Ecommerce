@@ -25,6 +25,7 @@ class OfferController extends Controller
 
     public function store(StoreOfferRequest $request)
     {
+        $input = [];
         $input = $request;
         $input ['status'] = 'active';
         $offer = Offer::create($input->validated());
@@ -39,7 +40,6 @@ class OfferController extends Controller
     public function show(int $offerId)
     {
         $offer = Offer::with('media')->findOrFail($offerId);
-        $this->authorize('show', $offer);
         return Helper::responseData('Offer found', true, OfferResource::make($offer), Response::HTTP_OK);
     }
 

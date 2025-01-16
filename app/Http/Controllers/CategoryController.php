@@ -38,7 +38,6 @@ class CategoryController extends Controller
     public function show(int $categoryId)
     {
         $category = Category::with('media')->findOrFail($categoryId);
-        $this->authorize('show', $category);
         return Helper::responseData('Category found', true, CategoryResource::make($category), Response::HTTP_OK);
     }
 

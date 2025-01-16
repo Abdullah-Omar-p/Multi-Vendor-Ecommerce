@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('store_id')->constrained()->onDelete('cascade');
 //            $table->foreignId('offer_id')->constrained()->nullable();
             $table->string('location')->nullable();
-            $table->datetime('trans_date');
+            $table->timestamp('trans_date')->nullable();
 
             $table->timestamps();
         });

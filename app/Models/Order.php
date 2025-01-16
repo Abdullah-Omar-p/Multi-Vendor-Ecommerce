@@ -15,12 +15,13 @@ class Order extends Model
         'status',
         'store_id',
         'user_id',
+        'trans_date',
 //        'offer_id',
         'location',
     ];
 
     public function products()
     {
-        return $this->belongsToMany(Product::class,'order_products');
+        return $this->belongsToMany(Product::class, 'order_products')->withTimestamps();
     }
 }

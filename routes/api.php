@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RolePermissionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -53,26 +54,48 @@ Route::prefix('cart')->group(function (){
     Route::get('find/{cartId}' , [CartController::class, 'show']);
 });
 
-Route::prefix('category')->middleware('auth:sanctum')->group(function (){
+Route::prefix('category')->group(function () {
     Route::get('/', [CategoryController::class, 'list']);
-    Route::post('create', [CategoryController::class, 'store']);
-    Route::get('find/{categoryId}' , [CategoryController::class, 'show']);
-    Route::post('update/{categoryId}', [CategoryController::class, 'update']);
-    Route::get('delete/{id}',[CategoryController::class, 'destroy']);
+    Route::get('find/{categoryId}', [CategoryController::class, 'show']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('create', [CategoryController::class, 'store']);
+        Route::post('update/{categoryId}', [CategoryController::class, 'update']);
+        Route::get('delete/{id}', [CategoryController::class, 'destroy']);
+    });
 });
-Route::prefix('comment')->middleware('auth:sanctum')->group(function () {
+
+Route::prefix('comment')->group(function () {
     Route::get('/', [CommentController::class, 'list']);
-    Route::post('create', [CommentController::class, 'store']);
     Route::get('find/{commentId}', [CommentController::class, 'show']);
-    Route::post('update/{commentId}', [CommentController::class, 'update']);
-    Route::get('delete/{commentId}', [CommentController::class, 'destroy']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('create', [CommentController::class, 'store']);
+        Route::post('update/{commentId}', [CommentController::class, 'update']);
+        Route::get('delete/{commentId}', [CommentController::class, 'destroy']);
+    });
 });
 
-Route::prefix('offer')->middleware('auth:sanctum')->group(function () {
+Route::prefix('offer')->group(function () {
     Route::get('/', [OfferController::class, 'list']);
-    Route::post('create', [OfferController::class, 'store']);
     Route::get('find/{offerId}', [OfferController::class, 'show']);
-    Route::post('update/{offerId}', [OfferController::class, 'update']);
-    Route::get('delete/{offerId}', [OfferController::class, 'destroy']);
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('create', [OfferController::class, 'store']);
+        Route::post('update/{offerId}', [OfferController::class, 'update']);
+        Route::get('delete/{offerId}', [OfferController::class, 'destroy']);
+    });
 });
 
+Route::prefix('order')->group(function () {
+    // Public routes
+    Route::get('/', [OrderController::class, 'list']);
+    Route::get('find/{orderId}', [OrderController::class, 'show']);
+
+    // Protected routes (requires authentication)
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('create', [OrderController::class, 'store']);
+        Route::post('update/{orderId}', [OrderController::class, 'update']);
+        Route::get('delete/{orderId}', [OrderController::class, 'destroy']);
+    });
+});

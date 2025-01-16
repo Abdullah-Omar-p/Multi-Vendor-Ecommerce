@@ -39,8 +39,6 @@ class CommentController extends Controller
     public function show(int $commentId)
     {
         $comment = Comment::findOrFail($commentId);
-        $this->authorize('view', $comment);
-
         return Helper::responseData('Comment found', true, CommentResource::make($comment), Response::HTTP_OK);
     }
 
@@ -48,7 +46,6 @@ class CommentController extends Controller
     {
         $comment = Comment::findOrFail($commentId);
         $comment->update($request->validated());
-
         return Helper::responseData('Comment Updated', true, CommentResource::make($comment), Response::HTTP_OK);
     }
 

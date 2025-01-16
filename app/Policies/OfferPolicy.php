@@ -9,14 +9,16 @@ class OfferPolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->hasAnyRole(['super-admin', 'admin']) || $user->can('view-offers');
+        return true;
+//        return $user->hasAnyRole(['super-admin', 'admin']) || $user->can('view-offers');
     }
 
     public function show(User $user, Offer $offer): bool
     {
-        return $user->id === $offer->user_id
-            || $user->hasAnyRole(['super-admin', 'admin'])
-            || $user->can('view-offers');
+        return true;
+//        return $user->id === $offer->user_id
+//            || $user->hasAnyRole(['super-admin', 'admin'])
+//            || $user->can('view-offers');
     }
 
     public function create(User $user): bool
