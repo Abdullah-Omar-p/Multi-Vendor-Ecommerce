@@ -39,14 +39,4 @@ class OfferPolicy
             || $user->hasAnyRole(['super-admin', 'admin'])
             || $user->can('delete-offers');
     }
-
-    public function restore(User $user, Offer $offer): bool
-    {
-        return $user->hasAnyRole(['super-admin', 'admin']);
-    }
-
-    public function forceDelete(User $user, Offer $offer): bool
-    {
-        return $user->hasAnyRole(['super-admin']);
-    }
 }

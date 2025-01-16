@@ -30,14 +30,10 @@ class OrderController extends Controller
         $input ['status'] = 1;
         $input ['user_id'] = auth('sanctum')->id();
         $input['trans_date'] = Carbon::now()->addDays(3);
-//        dd($request->input('product_id'));
-
         $order = Order::create($input);
-//        $this->authorize('create', $order);
-
+        $this->authorize('create', $order);
         $request->has('product_id') ? $order->products()->sync($request->input('product_id')) : null;
-        return Helper::responseData('Order Created Successfully', true,
-            new OrderResource($order), Response::HTTP_OK);
+        return Helper::responseData('Order Created Successfully', true, new OrderResource($order), Response::HTTP_OK);
     }
 
     public function show(int $orderId)
@@ -49,17 +45,15 @@ class OrderController extends Controller
     public function update(UpdateOrderRequest $request, int $orderId)
     {
         $order = Order::findOrFail($orderId);
+        $this->authorize('update', $order);
         $order->update($request->validated());
-        if ($request->hasFile('invoice')) {
-            $mimeType = $request->file('invoice')->getMimeType();
-            MediaController::updateMedia($request, $mimeType, $order, Order::class, $orderId);
-        }
         return Helper::responseData('Order Updated', true, OrderResource::make($order), Response::HTTP_OK);
     }
 
     public function destroy(int $orderId)
     {
         $order = Order::findOrFail($orderId);
+        $this->authorize('delete', $order);
         $order->delete();
         return Helper::responseData('Order Deleted', true, null, Response::HTTP_OK);
     }

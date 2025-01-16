@@ -44,7 +44,9 @@ class CategoryController extends Controller
 
     public function update(UpdateCategoryRequest $request, int $categoryId)
     {
+
         $category = Category::findOrFail($categoryId);
+        $this->authorize('update', $category);
         $category->update($request->validated());
         if ($request->hasFile('media')) {
             $mimeType = $request->file('media')->getMimeType();
@@ -57,6 +59,7 @@ class CategoryController extends Controller
     public function destroy(int $categoryId)
     {
         $category = Category::findOrFail($categoryId);
+        $this->authorize('delete', $category);
         $category->delete();
         return Helper::responseData('Comment Deleted', true, null, Response::HTTP_OK);
 

@@ -46,6 +46,7 @@ class OfferController extends Controller
     public function update(UpdateOfferRequest $request, int $offerId)
     {
         $offer = Offer::findOrFail($offerId);
+        $this->authorize('update', $offer);
         $offer->update($request->validated());
         if ($request->hasFile('media')) {
             $mimeType = $request->file('media')->getMimeType();
@@ -57,6 +58,7 @@ class OfferController extends Controller
     public function destroy(int $offerId)
     {
         $offer = Offer::findOrFail($offerId);
+        $this->authorize('delete', $offer);
         $offer->delete();
         return Helper::responseData('Offer Deleted', true, null, Response::HTTP_OK);
     }
