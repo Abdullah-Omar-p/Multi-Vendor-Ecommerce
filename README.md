@@ -1,4 +1,4 @@
-# [ [SuperMarketDashboard Project - API Documentation](#) ]
+# [ [MultiVendorEcommerce Project - API Documentation](#) ]
 
 ## Connect with the Developer
 
