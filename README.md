@@ -1,4 +1,4 @@
-# [ [MultiVendorEcommerce 🛒 System ⚙️](#) ]
+# [ [MultiVendorEcommerce 🛒 System 🌐](#) ]
 
 ## Connect with the Developer
 
