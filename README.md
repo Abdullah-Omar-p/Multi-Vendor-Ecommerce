@@ -8,7 +8,7 @@
 - **WhatsApp:** [+01144393582](https://wa.me/01144393582)
 - **Email:** [abdullahomarj1@gmail.com](abdullahomarj1@gmail.com)
 - **Website:** [Eng-AbdullhOmar.online](https://www.eng-abdullahomar.online)
-- **Telegram:** [@abdullahomar_p](https://t.me/abdullahomar_p)
+- **Telegram:** [@abdullahomar98](https://t.me/abdullahomar98)
 
 
 # ``Description Summury``
