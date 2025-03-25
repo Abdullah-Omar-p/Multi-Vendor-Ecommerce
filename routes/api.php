@@ -95,7 +95,6 @@ Route::prefix('order')->group(function () {
     // Protected routes (requires authentication)
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('create', [OrderController::class, 'store']);
-        Route::post('update/{orderId}', [OrderController::class, 'update']);
-        Route::get('delete/{orderId}', [OrderController::class, 'destroy']);
+        Route::get('cancel/{orderId}', [OrderController::class, 'cancel']);
     });
 });

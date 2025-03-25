@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
-
+    // TODO: MAKE ALL POLICES HERE.
 class ProductPolicy
 {
     /**

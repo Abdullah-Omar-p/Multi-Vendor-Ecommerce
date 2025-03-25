@@ -19,9 +19,10 @@ class Offer extends Model
         'no_pieces',
         'store_id',
     ];
+
     public function products()
     {
-       return $this->belongsToMany(Product::class, 'offer_products');
+        return $this->belongsToMany(Product::class, 'offer_products');
     }
 
     public function users()
@@ -32,5 +33,10 @@ class Offer extends Model
     public function media()
     {
         return $this->morphMany(Media::class, 'mediaable');
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
     }
 }

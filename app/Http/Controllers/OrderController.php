@@ -15,7 +15,7 @@ class OrderController extends Controller
     public function list()
     {
         $orderResources = [];
-        Order::with('items')->chunk(100, function($orders) use (&$orderResources) {
+        Order::chunk(100, function($orders) use (&$orderResources) {
             $orderResources = array_merge($orderResources, OrderResource::collection($orders)->toArray(request()));
         });
         if (empty($orderResources)) {
@@ -32,25 +32,25 @@ class OrderController extends Controller
         $input['trans_date'] = Carbon::now()->addDays(3);
         $order = Order::create($input);
         $this->authorize('create', $order);
+
+        // .. product id is not required coz order can contain OFFER only , So should check if presented..
         $request->has('product_id') ? $order->products()->sync($request->input('product_id')) : null;
+
+        // .. Get The Count Of Products If Order Contains Products Not Offer ..
+        $productCount = count((array) $request->input('product_id'));
+        $productCount = $productCount > 0 ? $productCount : 'offer';
+        $order['no_pieces'] = $productCount;
+
         return Helper::responseData('Order Created Successfully', true, new OrderResource($order), Response::HTTP_OK);
     }
 
     public function show(int $orderId)
     {
-        $order = Order::with('items')->findOrFail($orderId);
+        $order = Order::findOrFail($orderId);
         return Helper::responseData('Order found', true, OrderResource::make($order), Response::HTTP_OK);
     }
 
-    public function update(UpdateOrderRequest $request, int $orderId)
-    {
-        $order = Order::findOrFail($orderId);
-        $this->authorize('update', $order);
-        $order->update($request->validated());
-        return Helper::responseData('Order Updated', true, OrderResource::make($order), Response::HTTP_OK);
-    }
-
-    public function destroy(int $orderId)
+    public function cancel(int $orderId)
     {
         $order = Order::findOrFail($orderId);
         $this->authorize('delete', $order);

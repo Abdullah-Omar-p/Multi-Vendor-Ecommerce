@@ -17,7 +17,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->tinyInteger('status')->nullable();
 //            $table->foreignId('product_id')->constrained()->nullable();
-            $table->foreignId('store_id')->constrained()->onDelete('cascade');
+            $table->foreignId('store_id')->nullable()->constrained()->onDelete('cascade');
+
+            $table->foreignId('offer_id')->nullable()->constrained()->onDelete('cascade');
 //            $table->foreignId('offer_id')->constrained()->nullable();
             $table->string('location')->nullable();
             $table->timestamp('trans_date')->nullable();

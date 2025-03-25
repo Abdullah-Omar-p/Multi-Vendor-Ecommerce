@@ -16,12 +16,19 @@ class Order extends Model
         'store_id',
         'user_id',
         'trans_date',
-//        'offer_id',
+        'offer_id',
         'location',
     ];
-
+    protected $attributes = [
+        'offer_id' => null,
+    ];
     public function products()
     {
         return $this->belongsToMany(Product::class, 'order_products')->withTimestamps();
+    }
+
+    public function offers()
+    {
+        return $this->hasOne(Offer::class);
     }
 }

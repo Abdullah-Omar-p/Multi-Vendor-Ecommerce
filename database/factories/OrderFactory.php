@@ -29,9 +29,9 @@ class OrderFactory extends Factory
             'price' => $productActualPrice,
             'user_id' => $user_id,
             'store_id' => $storeId,
+            'offer_id' => $offerId,
             'status' => 'active' or 'inactive',
 //            'product_id' => $product_id,
-//            'offer_id' => $offerId,
             'location' => fake()->address(),
             'trans_date' => $trans_date->format('Y-m-d H:i:s'),
 
