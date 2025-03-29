@@ -16,15 +16,20 @@ class StoreController extends Controller
 {
     public function list()
     {
-        $storeResources = [];
-        Store::with('media')->chunk(100, function ($stores) use (&$storeResources) {
-            $storeResources = array_merge($storeResources, StoreResource::collection($stores)->toArray(request()));
-        });
+        try {
+            $storeResources = [];
+            Store::with('media')->chunk(100, function ($stores) use (&$storeResources) {
+                $storeResources = array_merge($storeResources, StoreResource::collection($stores)->toArray(request()));
+            });
 
-        return empty($storeResources)
-            ? Helper::responseData('No Stores Found', false, null, 404)
-            : Helper::responseData('Stores found', true, $storeResources, Response::HTTP_OK);
+            return empty($storeResources)
+                ? Helper::responseData('No Stores Found', false, null, 404)
+                : Helper::responseData('Stores found', true, $storeResources, Response::HTTP_OK);
+        } catch (Throwable $e) {
+            return Helper::responseData('Failed to fetch stores' . $e->getMessage(), false, null, 500);
+        }
     }
+
 
     public function store(StoreStoreRequest $request)
     {
@@ -42,7 +47,7 @@ class StoreController extends Controller
             return Helper::responseData('Store Added Successfully', true, new StoreResource($store), Response::HTTP_OK);
         } catch (Throwable $e) {
             DB::rollBack();
-            return Helper::responseData('Failed to add store', false, null, 500);
+            return Helper::responseData('Failed to add store' . $e->getMessage(), false, null, 500);
         }
     }
 
@@ -52,7 +57,7 @@ class StoreController extends Controller
             $store = Store::with('media')->findOrFail($storeId);
             return Helper::responseData('Store found', true, StoreResource::make($store), Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return Helper::responseData('Store not found', false, null, 404);
+            return Helper::responseData('Store not found' . $e->getMessage(), false, null, 404);
         }
     }
 
@@ -76,7 +81,7 @@ class StoreController extends Controller
             return Helper::responseData('Store not found', false, null, 404);
         } catch (Throwable $e) {
             DB::rollBack();
-            return Helper::responseData('Failed to update store', false, null, 500);
+            return Helper::responseData('Failed to update store' . $e->getMessage(), false, null, 500);
         }
     }
 
@@ -90,7 +95,7 @@ class StoreController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Store not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to delete store', false, null, 500);
+            return Helper::responseData('Failed to delete store' . $e->getMessage(), false, null, 500);
         }
     }
 }

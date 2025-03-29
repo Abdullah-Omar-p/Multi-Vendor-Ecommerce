@@ -26,7 +26,7 @@ class OfferController extends Controller
                 ? Helper::responseData('No Offers Found', false, null, 404)
                 : Helper::responseData('Offers found', true, $offerResources, Response::HTTP_OK);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch offers', false, null, 500);
+            return Helper::responseData('Failed to fetch offers' . $e->getMessage(), false, null, 500);
         }
     }
 
@@ -49,7 +49,7 @@ class OfferController extends Controller
             return Helper::responseData('Offer Added Successfully', true, new OfferResource($offer), Response::HTTP_OK);
         } catch (Throwable $e) {
             DB::rollBack();
-            return Helper::responseData('Failed to add offer', false, null, 500);
+            return Helper::responseData('Failed to add offer' . $e->getMessage(), false, null, 500);
         }
     }
 
@@ -61,7 +61,7 @@ class OfferController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Offer not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch offer', false, null, 500);
+            return Helper::responseData('Failed to fetch offer' . $e->getMessage(), false, null, 500);
         }
     }
 
@@ -85,7 +85,7 @@ class OfferController extends Controller
             return Helper::responseData('Offer not found', false, null, 404);
         } catch (Throwable $e) {
             DB::rollBack();
-            return Helper::responseData('Failed to update offer', false, null, 500);
+            return Helper::responseData('Failed to update offer' . $e->getMessage(), false, null, 500);
         }
     }
 
@@ -99,7 +99,7 @@ class OfferController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Offer not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to delete offer', false, null, 500);
+            return Helper::responseData('Failed to delete offer' . $e->getMessage(), false, null, 500);
         }
     }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RolePermissionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -95,5 +96,18 @@ Route::prefix('order')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('create', [OrderController::class, 'store']);
         Route::get('cancel/{orderId}', [OrderController::class, 'cancel']);
+    });
+});
+
+Route::prefix('product')->group(function () {
+    // Public routes
+    Route::get('/', [ProductController::class, 'list']);
+    Route::get('find/{productId}', [ProductController::class, 'show']);
+
+    // Protected routes (requires authentication)
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('create', [ProductController::class, 'store']);
+        Route::post('update/{productId}', [ProductController::class, 'update']);
+        Route::get('delete/{productId}', [ProductController::class, 'destroy']);
     });
 });

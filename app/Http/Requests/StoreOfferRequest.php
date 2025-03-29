@@ -14,12 +14,12 @@ class StoreOfferRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'price' => 'required|integer',
-            'name' => 'required|string',
-            'about' => 'required|string',
+            'price'     => 'required|integer',
+            'name'      => 'required|string',
+            'about'     => 'required|string',
             'no_pieces' => 'required|integer',
-            'store_id' => 'required|exists:stores,id',
-            'custom' => 'required|in:public,for customers',
+            'store_id'  => 'required|exists:stores,id',
+            'custom'    => 'required|in:public,for customers',
         ];
     }
 

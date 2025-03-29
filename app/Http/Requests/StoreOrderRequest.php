@@ -16,9 +16,9 @@ class StoreOrderRequest extends FormRequest
         return [
             'product_id' => 'prohibited_unless:offer_id,null, required_without:offer_id',
             'offer_id'   => 'prohibited_unless:product_id,null, required_without:product_id',
-            'price' => 'required|integer',
-            'store_id' => 'required|exists:stores,id',
-            'location' => 'required|string',
+            'price'      => 'required|integer',
+            'store_id'   => 'required|exists:stores,id',
+            'location'   => 'required|string',
         ];
     }
 

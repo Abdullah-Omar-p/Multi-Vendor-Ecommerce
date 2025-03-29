@@ -15,12 +15,12 @@ class SignUpRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'token' =>'required|integer|digits:6',
-            'f_name' => 'required|string|max:50',
-            'l_name' => 'required|string|max:50',
-            'gender' => 'required|string|in:male,female' ,
-            'email' => 'required|email|unique:users,email',
-            'phone' => 'required|string',
+            'token'    =>'required|integer|digits:6',
+            'f_name'   => 'required|string|max:50',
+            'l_name'   => 'required|string|max:50',
+            'gender'   => 'required|string|in:male,female' ,
+            'email'    => 'required|email|unique:users,email',
+            'phone'    => 'required|string',
             'password' => 'required|confirmed'
         ];
     }

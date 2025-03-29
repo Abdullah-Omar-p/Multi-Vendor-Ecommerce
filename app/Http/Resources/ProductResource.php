@@ -21,6 +21,7 @@ class ProductResource extends JsonResource
             'sold' => $this->sold,
             'rate' => $this->rate,
             'description' => $this->description,
+            'media' => MediaResource::collection($this->whenLoaded('media')), // Eager load media
             'col_2' => $this->col_2,
             'col_3' => $this->col_3,
             'col_4' => $this->col_4,

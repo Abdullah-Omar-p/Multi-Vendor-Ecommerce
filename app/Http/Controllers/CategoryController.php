@@ -26,7 +26,7 @@ class CategoryController extends Controller
                 ? Helper::responseData('No Categories Found', false, null, 404)
                 : Helper::responseData('Categories found', true, $categoryResources, Response::HTTP_OK);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch categories', false, null, 500);
+            return Helper::responseData('Failed to fetch categories' . $e->getMessage(), false, null, 500);
         }
     }
 
@@ -46,7 +46,7 @@ class CategoryController extends Controller
             return Helper::responseData('Category Added Successfully', true, new CategoryResource($category), Response::HTTP_OK);
         } catch (Throwable $e) {
             DB::rollBack();
-            return Helper::responseData('Failed to add category', false, null, 500);
+            return Helper::responseData('Failed to add category' . $e->getMessage(), false, null, 500);
         }
     }
 
@@ -58,7 +58,7 @@ class CategoryController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Category not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch category', false, null, 500);
+            return Helper::responseData('Failed to fetch category' . $e->getMessage(), false, null, 500);
         }
     }
 
@@ -82,7 +82,7 @@ class CategoryController extends Controller
             return Helper::responseData('Category not found', false, null, 404);
         } catch (Throwable $e) {
             DB::rollBack();
-            return Helper::responseData('Failed to update category', false, null, 500);
+            return Helper::responseData('Failed to update category' . $e->getMessage(), false, null, 500);
         }
     }
 
@@ -96,7 +96,7 @@ class CategoryController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Category not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to delete category', false, null, 500);
+            return Helper::responseData('Failed to delete category' . $e->getMessage(), false, null, 500);
         }
     }
 }

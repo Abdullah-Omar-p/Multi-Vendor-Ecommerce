@@ -26,7 +26,7 @@ class CommentController extends Controller
                 ? Helper::responseData('No Comments Found', false, null, 404)
                 : Helper::responseData('Comments found', true, $commentResources, Response::HTTP_OK);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch comments', false, null, 500);
+            return Helper::responseData('Failed to fetch comments' . $e->getMessage(), false, null, 500);
         }
     }
 
@@ -43,7 +43,7 @@ class CommentController extends Controller
             return Helper::responseData('Comment Added Successfully', true, new CommentResource($comment), Response::HTTP_OK);
         } catch (Throwable $e) {
             DB::rollBack();
-            return Helper::responseData('Failed to add comment', false, null, 500);
+            return Helper::responseData('Failed to add comment' . $e->getMessage(), false, null, 500);
         }
     }
 
@@ -55,7 +55,7 @@ class CommentController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Comment not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch comment', false, null, 500);
+            return Helper::responseData('Failed to fetch comment' . $e->getMessage(), false, null, 500);
         }
     }
 
@@ -69,7 +69,7 @@ class CommentController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Comment not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to update comment', false, null, 500);
+            return Helper::responseData('Failed to update comment' . $e->getMessage(), false, null, 500);
         }
     }
 
@@ -84,7 +84,7 @@ class CommentController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Comment not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to delete comment', false, null, 500);
+            return Helper::responseData('Failed to delete comment' . $e->getMessage(), false, null, 500);
         }
     }
 }

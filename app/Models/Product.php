@@ -36,4 +36,8 @@ class Product extends Model
         return $this->belongsToMany(Order::class, 'order_products')->withTimestamps();
     }
 
+    public function media()
+    {
+        return $this->morphMany(Media::class, 'mediaable');
+    }
 }
