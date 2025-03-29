@@ -8,9 +8,7 @@ use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // TODO : start in this ..
     public function index()
     {
         //
