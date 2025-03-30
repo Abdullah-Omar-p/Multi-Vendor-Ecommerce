@@ -2,76 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Media;
-use Illuminate\Support\Facades\Storage;
+use App\Helpers\Helper;
+use App\Http\Resources\StoreResource;
+use App\Models\Store;
+use App\Http\Requests\StoreStoreRequest;
+use App\Http\Requests\UpdateStoreRequest;
+use Illuminate\Http\Response;
 
-class MediaController extends Controller
+class StoreController extends Controller
 {
-    // Store Media
-    public function store(Request $request)
+    public function list()
     {
-        $request->validate([
-            'media' => 'required|file|mimes:jpg,jpeg,png,mp4,mp3|max:10240',
-        ]);
-
-        $file = $request->file('media');
-        $filePath = $file->store('media');
-        $media = Media::create([
-            'file_name' => $file->getClientOriginalName(),
-            'file_path' => $filePath,
-            'type' => $file->getMimeType(),
-        ]);
-
-        return response()->json(['success' => true, 'media' => $media]);
-    }
-
-    // Get Media
-    public function show($id)
-    {
-        $media = Media::findOrFail($id);
-        return response()->json(['success' => true, 'media' => $media]);
-    }
-
-    // Edit Media
-    public function update(Request $request, $id)
-    {
-        $media = Media::findOrFail($id);
-
-        if ($request->hasFile('media')) {
-            $request->validate([
-                'media' => 'required|file|mimes:jpg,jpeg,png,mp4,mp3|max:10240',
-            ]);
-
-            // Delete old file
-            Storage::delete($media->file_path);
-
-            // Store new file
-            $file = $request->file('media');
-            $filePath = $file->store('media');
-
-            // Update database record
-            $media->update([
-                'file_name' => $file->getClientOriginalName(),
-                'file_path' => $filePath,
-                'type' => $file->getMimeType(),
-            ]);
+        $storeResources = [];
+        Store::chunk(100, function ($stores) use (&$storeResources) {
+            $storeResources = array_merge($storeResources, StoreResource::collection($stores)->toArray(request()));
+        });
+        if (empty($storeResources)) {
+            return Helper::responseData('No Stores Found', false, null, 404);
         }
-
-        return response()->json(['success' => true, 'media' => $media]);
+        return Helper::responseData('Stores found', true, $storeResources, Response::HTTP_OK);
     }
 
-    // Delete Media
-    public function destroy($id)
+    public function store(StoreStoreRequest $request)
     {
-        $media = Media::findOrFail($id);
+        $store = Store::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description', null),
+            'user_id' => auth('sanctum')->id(),
+            'location' => $request->input('location', null),
+        ]);
+        $this->authorize('create', $store);
 
-        // Delete file from storage
-        Storage::delete($media->file_path);
+        return Helper::responseData('Store Added Successfully', true, new StoreResource($store), Response::HTTP_OK);
+    }
 
-        // Delete record from database
-        $media->delete();
+    public function show(int $storeId)
+    {
+        $store = Store::findOrFail($storeId);
+        return Helper::responseData('Store found', true, StoreResource::make($store), Response::HTTP_OK);
+    }
 
-        return response()->json(['success' => true]);
+    public function update(UpdateStoreRequest $request, int $storeId)
+    {
+        $store = Store::findOrFail($storeId);
+        $this->authorize('update', $store);
+        $store->update($request->validated());
+        return Helper::responseData('Store Updated', true, StoreResource::make($store), Response::HTTP_OK);
+    }
+
+    public function destroy(int $storeId)
+    {
+        $store = Store::findOrFail($storeId);
+        $this->authorize('delete', $store);
+        $store->delete();
+
+        return Helper::responseData('Store Deleted', true, null, Response::HTTP_OK);
     }
 }
