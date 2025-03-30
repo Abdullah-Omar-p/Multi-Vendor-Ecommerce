@@ -14,8 +14,8 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id' => 'required_without:offer_id|exists:products,id',
-            'offer_id'   => 'required_without:product_id|exists:offers,id',
+            'product_id' => 'prohibited_unless:offer_id,null, required_without:offer_id',
+            'offer_id'   => 'prohibited_unless:product_id,null, required_without:product_id',
             'price' => 'required|integer',
             'store_id' => 'required|exists:stores,id',
             'location' => 'required|string',
@@ -24,8 +24,14 @@ class StoreOrderRequest extends FormRequest
 
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
     {
-        throw new \Illuminate\Http\Exceptions\HttpResponseException(response()->json([
-            'errors' => $validator->errors(),
-        ], 422));
+        throw new \Illuminate\Http\Exceptions\HttpResponseException(
+            \App\Helpers\Helper::responseData(
+                'Validation failed',
+                false,
+                $validator->errors(),
+                422
+            )
+        );
     }
+
 }

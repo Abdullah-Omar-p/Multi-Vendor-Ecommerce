@@ -18,6 +18,7 @@ class OfferResource extends JsonResource
             'status' => $this->status,
             'no_pieces' => $this->no_pieces,
             'store_id' => $this->store_id,
+            'media' => MediaResource::collection($this->whenLoaded('media')), // Eager load media
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
 

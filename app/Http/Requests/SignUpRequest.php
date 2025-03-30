@@ -27,8 +27,13 @@ class SignUpRequest extends FormRequest
 
     protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
     {
-        throw new \Illuminate\Http\Exceptions\HttpResponseException(response()->json([
-            'errors' => $validator->errors(),
-        ], 422));
+        throw new \Illuminate\Http\Exceptions\HttpResponseException(
+            \App\Helpers\Helper::responseData(
+                'Validation failed',
+                false,
+                $validator->errors(),
+                422
+            )
+        );
     }
 }
