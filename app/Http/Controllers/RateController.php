@@ -8,9 +8,7 @@ use App\Http\Requests\UpdateRateRequest;
 
 class RateController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // TODO : Make This Controller ..
     public function index()
     {
         //
