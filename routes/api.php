@@ -6,6 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\OfferController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RateController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Http\Request;
@@ -124,6 +125,20 @@ Route::prefix('store')->group(function () {
         Route::post('create', [StoreController::class, 'store']);
         Route::post('update/{storeId}', [StoreController::class, 'update']);
         Route::get('delete/{storeId}', [StoreController::class, 'destroy']);
+    });
+});
+
+
+Route::prefix('rate')->group(function () {
+    // Public routes
+    Route::get('/', [RateController::class, 'list']);
+    Route::get('find/{rateId}', [RateController::class, 'show']);
+
+    // Protected routes (requires authentication)
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('create', [RateController::class, 'store']);
+        Route::post('update/{rateId}', [RateController::class, 'update']);
+        Route::get('delete/{rateId}', [RateController::class, 'destroy']);
     });
 });
 

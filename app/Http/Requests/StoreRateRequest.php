@@ -14,7 +14,9 @@ class StoreRateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'rate' => 'required|integer|min:1|max:5',
+            'product_id' => 'required|exists:products,id',
+            'comment_id' => 'nullable|exists:comments,id',
         ];
     }
 
