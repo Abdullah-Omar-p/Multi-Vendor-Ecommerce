@@ -23,4 +23,9 @@ class Store extends Model
     {
         return $this->belongsToMany(User::class , 'store_users');
     }
+
+    public function media()
+    {
+        return $this->morphMany(Media::class, 'mediaable');
+    }
 }

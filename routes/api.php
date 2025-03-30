@@ -7,6 +7,7 @@ use App\Http\Controllers\OfferController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RolePermissionController;
+use App\Http\Controllers\StoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -111,3 +112,18 @@ Route::prefix('product')->group(function () {
         Route::get('delete/{productId}', [ProductController::class, 'destroy']);
     });
 });
+
+
+Route::prefix('store')->group(function () {
+    // Public routes
+    Route::get('/', [StoreController::class, 'list']);
+    Route::get('find/{storeId}', [StoreController::class, 'show']);
+
+    // Protected routes (requires authentication)
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('create', [StoreController::class, 'store']);
+        Route::post('update/{storeId}', [StoreController::class, 'update']);
+        Route::get('delete/{storeId}', [StoreController::class, 'destroy']);
+    });
+});
+

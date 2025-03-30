@@ -16,6 +16,7 @@ class StoreResource extends JsonResource
             'phone' => $this->phone,
             'link_website' => $this->link_website,
             'services' => $this->services,
+            'media' => MediaResource::collection($this->whenLoaded('media')), // Eager load media
             'location' => $this->location,
             'email' => $this->email,
             'created_at' => $this->created_at,

@@ -14,13 +14,15 @@ class StoreStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'about_store' => 'required|string',
-            'phone' => 'required|string|max:20',
-            'link_website' => 'nullable|url|max:255',
-            'services' => 'nullable|string',
-            'location' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:stores,email',
+            'name'          => 'required|string|max:255',
+            'about_store'   => 'required|string',
+            'phone'         => 'required|string|max:20',
+            'link_website'  => 'nullable|url|max:255',
+            'services'      => 'required|string',
+            'media'             => 'required|image|max:1024000',
+
+            'location'      => 'required|string|max:255',
+            'email'         => 'required|email|max:255|unique:stores,email',
         ];
     }
 

@@ -42,6 +42,7 @@ class StoreController extends Controller
                 $mimeType = $request->file('media')->getMimeType();
                 MediaController::saveMedia($request, $mimeType, $store, Store::class);
             }
+            $store->load('media');
 
             DB::commit();
             return Helper::responseData('Store Added Successfully', true, new StoreResource($store), Response::HTTP_OK);
