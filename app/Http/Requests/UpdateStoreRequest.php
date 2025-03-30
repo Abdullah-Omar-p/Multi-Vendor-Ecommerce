@@ -8,13 +8,19 @@ class UpdateStoreRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'about_store' => 'required|string',
+            'phone' => 'required|string|max:20',
+            'link_website' => 'nullable|url|max:255',
+            'services' => 'nullable|string',
+            'location' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:stores,email',
         ];
     }
 
