@@ -50,7 +50,6 @@ Route::prefix('permissions')->group(function (){
 
 Route::prefix('cart')->group(function (){
     Route::get('/', [CartController::class, 'list']);
-    Route::post('create', [CartController::class, 'store']);
     Route::get('find/{cartId}' , [CartController::class, 'show']);
 });
 

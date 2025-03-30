@@ -5,38 +5,43 @@ namespace App\Http\Controllers;
 use App\Helpers\Helper;
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
-use App\Http\Requests\StoreCartRequest;
-use App\Http\Requests\UpdateCartRequest;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Throwable;
 
 class CartController extends Controller
 {
     public function list()
     {
-        $cartResources = [];
-        Cart::chunk(100, function($carts) use (&$cartResources) {
-            $cartResources = array_merge($cartResources, CartResource::collection($carts)->toArray(request()));
-        });
-        if (empty($cartResources)) {
-            return Helper::responseData('No Carts Found', false, null, 404);
+        try {
+            $cartResources = [];
+            Cart::chunk(100, function ($carts) use (&$cartResources) {
+                $cartResources = array_merge($cartResources, CartResource::collection($carts)->toArray(request()));
+            });
+
+            return empty($cartResources)
+                ? Helper::responseData('No Carts Found', false, null, 404)
+                : Helper::responseData('Carts found', true, $cartResources, 200);
+        } catch (Throwable $e) {
+            return Helper::responseData('Failed to fetch carts', false, null, 500);
         }
-        return Helper::responseData('Carts found', true, $cartResources, 200);
     }
 
-
-    public function store(StoreCartRequest $request)
+    public function show()
     {
-        $user = auth('sanctum')->user();
-        $input [] = $request;
-        $input ['user_id'] = $user->id;
-        $cart = Cart::create($input);
-        return Helper::responseData('Cart Added Successfully', true, new CartResource($cart), 200);
-    }
+        try {
+            $user = auth('sanctum')->user();
+            $cart = $user->cart()->with('products')->first();
 
-    public function show(int $cartId)
-    {
-        $cart = Cart::findOrFail($cartId);
-        return Helper::responseData('Success', true, CartResource::make($cart), 200);
+            if (!$cart) {
+                return Helper::responseData('Cart not found', false, null, 404);
+            }
+
+            return Helper::responseData('Success', true, [
+                'cart' => new CartResource($cart),
+                'products' => $cart->products,
+            ], 200);
+        } catch (Throwable $e) {
+            return Helper::responseData('Failed to fetch cart', false, null, 500);
+        }
     }
 
 }

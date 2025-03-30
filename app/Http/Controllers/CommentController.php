@@ -25,13 +25,9 @@ class CommentController extends Controller
 
     public function store(StoreCommentRequest $request)
     {
-        $comment = Comment::create([
-            'content' => $request->input('content'),
-            'parent_id' => $request->input('parent_id', null),
-            'product_id' => $request->input('product_id'),
-            'user_id' => auth('sanctum')->id(),
-            'rate' => $request->input('rate', null),
-        ]);
+        $data = $request->validated();
+        $data['user_id'] = auth('sanctum')->id();
+        $comment = Comment::create($data);
         $this->authorize('create', $comment);
 
         return Helper::responseData('Comment Added Successfully', true, new CommentResource($comment), Response::HTTP_OK);
