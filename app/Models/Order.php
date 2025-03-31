@@ -27,7 +27,7 @@ class Order extends Model
         return $this->belongsToMany(Product::class, 'order_products')->withTimestamps();
     }
 
-    public function offers()
+    public function offer()
     {
         return $this->hasOne(Offer::class);
     }

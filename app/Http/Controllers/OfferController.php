@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Http\Resources\OfferResource;
+use App\Http\Resources\ProductResource;
 use App\Models\Offer;
 use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
@@ -14,6 +15,38 @@ use Throwable;
 
 class OfferController extends Controller
 {
+    public function getOrdersForOffer(int $offerId)
+    {
+        try {
+            $offer = Offer::with('orders')->findOrFail($offerId);
+            if (!$offer->orders) {
+                return Helper::responseData('No orders found for this offer', false, [], 404);
+            }
+            return Helper::responseData('Orders for the offer found', true, $offer->orders, Response::HTTP_OK
+            );
+        } catch (ModelNotFoundException $e) {
+            return Helper::responseData('Offer not found', false, null, 404);
+        } catch (Throwable $e) {
+            return Helper::responseData('Failed to fetch orders for the offer ' . $e->getMessage(), false, null, 500);
+        }
+    }
+
+    public function getProductsForOffer(int $offerId)
+    {
+        try {
+            $products = [];
+            Offer::with('products.media')->find($offerId)?->products->each(function ($product) use (&$products) {
+                $products[] = ProductResource::make($product)->toArray(request());
+            });
+            if (!$products){
+                return Helper::responseData('No Products Found for this Offer', false, null, Response::HTTP_NOT_FOUND);
+            }
+            return Helper::responseData('Offer products found', true, $products, Response::HTTP_OK);
+        } catch (Throwable $e) {
+            return Helper::responseData('Failed to fetch offer products' . ' ' . $e->getMessage(), false, null, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     public function list()
     {
         try {
@@ -100,22 +133,6 @@ class OfferController extends Controller
             return Helper::responseData('Offer not found', false, null, 404);
         } catch (Throwable $e) {
             return Helper::responseData('Failed to delete offer' .' '. $e->getMessage(), false, null, 500);
-        }
-    }
-
-    public function getOrdersForOffer(int $offerId)
-    {
-        try {
-            $offer = Offer::with('orders')->findOrFail($offerId);
-            if (!$offer->orders) {
-                return Helper::responseData('No orders found for this offer', false, [], 404);
-            }
-            return Helper::responseData('Orders for the offer found', true, $offer->orders, Response::HTTP_OK
-            );
-        } catch (ModelNotFoundException $e) {
-            return Helper::responseData('Offer not found', false, null, 404);
-        } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch orders for the offer ' . $e->getMessage(), false, null, 500);
         }
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Http\Resources\OrderResource;
+use App\Http\Resources\ProductResource;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
@@ -14,6 +15,22 @@ use Throwable;
 
 class OrderController extends Controller
 {
+
+    public function relatedProducts(int $orderId)
+    {
+        try {
+            $products = [];
+            Order::with('products.media')->find($orderId)?->products->each(function ($product) use (&$products) {
+                $products[] = ProductResource::make($product)->toArray(request());
+            });
+            if (!$products) {
+                return Helper::responseData('No Products Found for this Order', false, null, Response::HTTP_NOT_FOUND);
+            }
+            return Helper::responseData('Order products found', true, $products, Response::HTTP_OK);
+        } catch (Throwable $e) {
+            return Helper::responseData('Failed to fetch order products' . ' ' . $e->getMessage(), false, null, Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
     public function list()
     {
         try {
@@ -50,7 +67,7 @@ class OrderController extends Controller
 
             return Helper::responseData('Order Created Successfully', true, new OrderResource($order), Response::HTTP_OK);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to create order' .' '. $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to create order' .' '. $e->getMessage(), false, null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -60,9 +77,9 @@ class OrderController extends Controller
             $order = Order::findOrFail($orderId);
             return Helper::responseData('Order found', true, OrderResource::make($order), Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return Helper::responseData('Order not found', false, null, 404);
+            return Helper::responseData('Order not found', false, null, Response::HTTP_NOT_FOUND);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch order' .' '. $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch order' .' '. $e->getMessage(), false, null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -74,9 +91,10 @@ class OrderController extends Controller
             $order->delete();
             return Helper::responseData('Order Deleted', true, null, Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return Helper::responseData('Order not found', false, null, 404);
+            return Helper::responseData('Order not found', false, null, Response::HTTP_NOT_FOUND);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to delete order' .' '. $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to delete order' .' '. $e->getMessage(), false, null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
 }

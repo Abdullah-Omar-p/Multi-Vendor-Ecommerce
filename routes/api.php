@@ -84,6 +84,7 @@ Route::prefix('offer')->group(function () {
     Route::get('/', [OfferController::class, 'list']);
     Route::get('find/{offerId}', [OfferController::class, 'show']);
     Route::get('orders/{offerId}', [OfferController::class, 'getOrdersForOffer']);
+    Route::get('products/{offerId}', [OfferController::class, 'getProductsForOffer']);
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('create', [OfferController::class, 'store']);
@@ -101,6 +102,7 @@ Route::prefix('order')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('create', [OrderController::class, 'store']);
         Route::get('cancel/{orderId}', [OrderController::class, 'cancel']);
+        Route::get('products/{orderId}', [OrderController::class, 'relatedProducts']);
     });
 });
 

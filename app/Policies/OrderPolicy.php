@@ -55,4 +55,12 @@ class OrderPolicy
             || $user->hasAnyRole(['super-admin', 'admin'])
             || $user->can('delete-orders');
     }
+
+    public function products(User $user, Order $order): bool
+    {
+        // Allow deleting if the user owns the order or has specific roles/permissions
+        return $user->id === $order->user_id
+            || $user->hasAnyRole(['super-admin', 'admin'])
+            || $user->can('delete-orders');
+    }
 }
