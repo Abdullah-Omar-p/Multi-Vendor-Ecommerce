@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Http\Resources\CommentResource;
+use App\Http\Resources\ProductResource;
 use App\Models\Comment;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use App\Models\Product;
 use Illuminate\Http\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +16,20 @@ use Throwable;
 
 class CommentController extends Controller
 {
+    public function relatedProduct(int $commentId)
+    {   // if in his activity founds comment then use this to reach the product that comment in
+        try {
+            $comment = Comment::findOrFail($commentId);
+            $product = $comment->product()->first();
+            return Helper::responseData('Product Founded', true, ProductResource::make($product), Response::HTTP_OK);
+
+        }catch (ModelNotFoundException $e) {
+            return Helper::responseData('Product not found', false, null, 404);
+        } catch (Throwable $e) {
+            return Helper::responseData('Failed to fetch product' . ' ' . $e->getMessage(), false, null, 500);
+        }
+
+    }
     public function list()
     {
         try {

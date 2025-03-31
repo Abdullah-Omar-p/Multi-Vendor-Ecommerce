@@ -19,27 +19,37 @@ class CategoryController extends Controller
         try {
             $category = Category::findOrFail($categoryId);
             $subCategories = $this->getAllChildren($category);
-
-            return Helper::responseData('Subcategories found', true, $subCategories, Response::HTTP_OK);
+            $result = [];
+            foreach ($subCategories as $subCategory) {
+                $products = $subCategory->products;
+                $result[] = [
+                    'category_id' =>$subCategory->id,
+                    'category_name' => $subCategory->name,
+                    'products' => $products,
+                ];
+            }
+            return Helper::responseData('Subcategories with products found', true, $result, Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Category not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch subcategories: ' .' '. $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch subcategories with products: ' .' '. $e->getMessage(), false, null, 500);
         }
     }
-
 
     private function getAllChildren($category)
     {
-        $children = $category->children()->get();
-        $allChildren = $children->toArray();
-
-        foreach ($children as $child) {
-            $allChildren = array_merge($allChildren, $this->getAllChildren($child));
+        $allChildren = collect();
+        $categories = Category::with('children')->get()->keyBy('id');
+        $queue = collect([$category]);
+        while ($queue->isNotEmpty()) {
+            $current = $queue->shift();
+            $children = $categories->get($current->id)?->children ?? collect();
+            $allChildren = $allChildren->merge($children);
+            $queue = $queue->merge($children);
         }
-
         return $allChildren;
     }
+
 
     public function list()
     {

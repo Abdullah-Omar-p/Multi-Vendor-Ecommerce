@@ -71,6 +71,7 @@ Route::prefix('category')->group(function () {
 Route::prefix('comment')->group(function () {
     Route::get('/', [CommentController::class, 'list']);
     Route::get('find/{commentId}', [CommentController::class, 'show']);
+    Route::get('/{commentId}/product', [CommentController::class, 'relatedProduct']);
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('create', [CommentController::class, 'store']);
@@ -82,6 +83,7 @@ Route::prefix('comment')->group(function () {
 Route::prefix('offer')->group(function () {
     Route::get('/', [OfferController::class, 'list']);
     Route::get('find/{offerId}', [OfferController::class, 'show']);
+    Route::get('orders/{offerId}', [OfferController::class, 'getOrdersForOffer']);
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('create', [OfferController::class, 'store']);

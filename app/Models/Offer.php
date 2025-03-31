@@ -35,7 +35,7 @@ class Offer extends Model
         return $this->morphMany(Media::class, 'mediaable');
     }
 
-    public function order()
+    public function orders()
     {
         return $this->belongsTo(Order::class);
     }

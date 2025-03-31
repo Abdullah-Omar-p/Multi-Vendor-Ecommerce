@@ -17,4 +17,9 @@ class Comment extends Model
         'product_id',
         'rate',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

@@ -21,12 +21,12 @@ class OfferController extends Controller
             Offer::with('media')->chunk(100, function ($offers) use (&$offerResources) {
                 $offerResources = array_merge($offerResources, OfferResource::collection($offers)->toArray(request()));
             });
-
-            return empty($offerResources)
-                ? Helper::responseData('No Offers Found', false, null, 404)
-                : Helper::responseData('Offers found', true, $offerResources, Response::HTTP_OK);
+            if (!$offerResources){
+                Helper::responseData('No Offers Found', false, null, Response::HTTP_NOT_FOUND);
+            }
+            Helper::responseData('Offers found', true, $offerResources, Response::HTTP_OK);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch offers' .' '. $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch offers' .' '. $e->getMessage(), false, null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -102,4 +102,21 @@ class OfferController extends Controller
             return Helper::responseData('Failed to delete offer' .' '. $e->getMessage(), false, null, 500);
         }
     }
+
+    public function getOrdersForOffer(int $offerId)
+    {
+        try {
+            $offer = Offer::with('orders')->findOrFail($offerId);
+            if (!$offer->orders) {
+                return Helper::responseData('No orders found for this offer', false, [], 404);
+            }
+            return Helper::responseData('Orders for the offer found', true, $offer->orders, Response::HTTP_OK
+            );
+        } catch (ModelNotFoundException $e) {
+            return Helper::responseData('Offer not found', false, null, 404);
+        } catch (Throwable $e) {
+            return Helper::responseData('Failed to fetch orders for the offer ' . $e->getMessage(), false, null, 500);
+        }
+    }
+
 }
