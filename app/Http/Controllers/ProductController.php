@@ -21,12 +21,12 @@ class ProductController extends Controller
             Product::with('media')->chunk(100, function($products) use (&$productResources) {
                 $productResources = array_merge($productResources, ProductResource::collection($products)->toArray(request()));
             });
-
-            return empty($productResources)
-                ? Helper::responseData('No Products Found', false, null, 404)
-                : Helper::responseData('Products found', true, $productResources, Response::HTTP_OK);
+            if (!$productResources){
+                return Helper::responseData('No Products Found', false, null, Response::HTTP_NOT_FOUND);
+            }
+            return Helper::responseData('Products found', true, $productResources, Response::HTTP_OK);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch products' .' '. $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch products' .' '. $e->getMessage(), false, null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

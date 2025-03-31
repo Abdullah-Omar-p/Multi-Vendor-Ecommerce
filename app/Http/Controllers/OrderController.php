@@ -22,11 +22,11 @@ class OrderController extends Controller
                 $orderResources = array_merge($orderResources, OrderResource::collection($orders)->toArray(request()));
             });
             if (empty($orderResources)) {
-                return Helper::responseData('No Orders Found', false, null, 404);
+                return Helper::responseData('No Orders Found', false, null, Response::HTTP_NOT_FOUND);
             }
             return Helper::responseData('Orders found', true, $orderResources, Response::HTTP_OK);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch orders' .' '. $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch orders' .' '. $e->getMessage(), false, null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

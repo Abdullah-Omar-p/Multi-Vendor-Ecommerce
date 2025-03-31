@@ -22,7 +22,7 @@ class OfferController extends Controller
                 $offerResources = array_merge($offerResources, OfferResource::collection($offers)->toArray(request()));
             });
             if (!$offerResources){
-                Helper::responseData('No Offers Found', false, null, Response::HTTP_NOT_FOUND);
+                return Helper::responseData('No Offers Found', false, null, Response::HTTP_NOT_FOUND);
             }
             Helper::responseData('Offers found', true, $offerResources, Response::HTTP_OK);
         } catch (Throwable $e) {

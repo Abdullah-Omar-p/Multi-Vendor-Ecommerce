@@ -21,12 +21,12 @@ class StoreController extends Controller
             Store::with('media')->chunk(100, function ($stores) use (&$storeResources) {
                 $storeResources = array_merge($storeResources, StoreResource::collection($stores)->toArray(request()));
             });
-
-            return empty($storeResources)
-                ? Helper::responseData('No Stores Found', false, null, 404)
-                : Helper::responseData('Stores found', true, $storeResources, Response::HTTP_OK);
+            if (!$storeResources){
+                return Helper::responseData('No Stores Found', false, null, Response::HTTP_NOT_FOUND);
+            }
+            return  Helper::responseData('Stores found', true, $storeResources, Response::HTTP_OK);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch stores' .' '. $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch stores' .' '. $e->getMessage(), false, null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

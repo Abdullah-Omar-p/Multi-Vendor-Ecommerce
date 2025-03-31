@@ -21,12 +21,14 @@ class CommentController extends Controller
         try {
             $comment = Comment::findOrFail($commentId);
             $product = $comment->product()->first();
+            if (!$product){
+                return Helper::responseData('Product not Found', false, null, Response::HTTP_NOT_FOUND);
+            }
             return Helper::responseData('Product Founded', true, ProductResource::make($product), Response::HTTP_OK);
-
         }catch (ModelNotFoundException $e) {
-            return Helper::responseData('Product not found', false, null, 404);
+            return Helper::responseData('Product not found', false, null, Response::HTTP_NOT_FOUND);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch product' . ' ' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch product' . ' ' . $e->getMessage(), false, null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
     }

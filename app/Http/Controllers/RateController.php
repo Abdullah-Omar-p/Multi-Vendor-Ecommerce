@@ -21,12 +21,12 @@ class RateController extends Controller
             Rate::chunk(100, function ($rates) use (&$rateResources) {
                 $rateResources = array_merge($rateResources, RateResource::collection($rates)->toArray(request()));
             });
-
-            return empty($rateResources)
-                ? Helper::responseData('No Rates Found', false, null, 404)
-                : Helper::responseData('Rates found', true, $rateResources, Response::HTTP_OK);
+            if (!$rateResources){
+                return Helper::responseData('No Rates Found', false, null, Response::HTTP_NOT_FOUND);
+            }
+            return Helper::responseData('Rates found', true, $rateResources, Response::HTTP_OK);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch rates' .' '. $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch rates' .' '. $e->getMessage(), false, null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

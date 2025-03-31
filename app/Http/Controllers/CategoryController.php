@@ -58,12 +58,12 @@ class CategoryController extends Controller
             Category::with('media')->chunk(100, function($categories) use (&$categoryResources) {
                 $categoryResources = array_merge($categoryResources, CategoryResource::collection($categories)->toArray(request()));
             });
-
-            return empty($categoryResources)
-                ? Helper::responseData('No Categories Found', false, null, 404)
-                : Helper::responseData('Categories found', true, $categoryResources, Response::HTTP_OK);
+            if (!$categoryResources){
+                return Helper::responseData('No Categories Found', false, null, Response::HTTP_NOT_FOUND);
+            }
+            return Helper::responseData('Categories found', true, $categoryResources, Response::HTTP_OK);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch categories' .' '. $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch categories' .' '. $e->getMessage(), false, null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
