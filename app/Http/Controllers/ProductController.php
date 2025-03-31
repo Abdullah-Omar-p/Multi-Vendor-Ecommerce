@@ -26,7 +26,7 @@ class ProductController extends Controller
                 ? Helper::responseData('No Products Found', false, null, 404)
                 : Helper::responseData('Products found', true, $productResources, Response::HTTP_OK);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch products' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch products' .' '. $e->getMessage(), false, null, 500);
         }
     }
 
@@ -48,7 +48,7 @@ class ProductController extends Controller
             return Helper::responseData('Product Added Successfully', true, new ProductResource($product), Response::HTTP_OK);
         } catch (Throwable $e) {
             DB::rollBack();
-            return Helper::responseData('Failed to add product: ' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to add product: ' .' '. $e->getMessage(), false, null, 500);
         }
     }
 
@@ -61,7 +61,7 @@ class ProductController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Product not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch product' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch product' .' '. $e->getMessage(), false, null, 500);
         }
     }
 
@@ -86,7 +86,7 @@ class ProductController extends Controller
             return Helper::responseData('Product not found', false, null, 404);
         } catch (Throwable $e) {
             DB::rollBack();
-            return Helper::responseData('Failed to update product' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to update product' .' '. $e->getMessage(), false, null, 500);
         }
     }
 
@@ -100,7 +100,7 @@ class ProductController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Product not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to delete product' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to delete product' .' '. $e->getMessage(), false, null, 500);
         }
     }
 }

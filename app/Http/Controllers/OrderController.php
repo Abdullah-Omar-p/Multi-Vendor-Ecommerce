@@ -26,7 +26,7 @@ class OrderController extends Controller
             }
             return Helper::responseData('Orders found', true, $orderResources, Response::HTTP_OK);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch orders' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch orders' .' '. $e->getMessage(), false, null, 500);
         }
     }
 
@@ -50,7 +50,7 @@ class OrderController extends Controller
 
             return Helper::responseData('Order Created Successfully', true, new OrderResource($order), Response::HTTP_OK);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to create order' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to create order' .' '. $e->getMessage(), false, null, 500);
         }
     }
 
@@ -62,7 +62,7 @@ class OrderController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Order not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch order' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch order' .' '. $e->getMessage(), false, null, 500);
         }
     }
 
@@ -76,7 +76,7 @@ class OrderController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Order not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to delete order' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to delete order' .' '. $e->getMessage(), false, null, 500);
         }
     }
 }

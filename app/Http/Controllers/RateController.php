@@ -26,7 +26,7 @@ class RateController extends Controller
                 ? Helper::responseData('No Rates Found', false, null, 404)
                 : Helper::responseData('Rates found', true, $rateResources, Response::HTTP_OK);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch rates' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch rates' .' '. $e->getMessage(), false, null, 500);
         }
     }
 
@@ -43,7 +43,7 @@ class RateController extends Controller
             return Helper::responseData('Rate Added Successfully', true, new RateResource($rate), Response::HTTP_OK);
         } catch (Throwable $e) {
             DB::rollBack();
-            return Helper::responseData('Failed to add rate' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to add rate' .' '. $e->getMessage(), false, null, 500);
         }
     }
 
@@ -55,7 +55,7 @@ class RateController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Rate not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch rate' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch rate' .' '. $e->getMessage(), false, null, 500);
         }
     }
 
@@ -69,7 +69,7 @@ class RateController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Rate not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to update rate' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to update rate' .' '. $e->getMessage(), false, null, 500);
         }
     }
 
@@ -84,7 +84,7 @@ class RateController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Rate not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to delete rate' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to delete rate' .' '. $e->getMessage(), false, null, 500);
         }
     }
 }
