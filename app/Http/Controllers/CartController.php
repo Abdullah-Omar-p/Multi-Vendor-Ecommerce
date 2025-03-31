@@ -21,7 +21,7 @@ class CartController extends Controller
                 ? Helper::responseData('No Carts Found', false, null, 404)
                 : Helper::responseData('Carts found', true, $cartResources, 200);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch carts' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch carts' .' '. $e->getMessage(), false, null, 500);
         }
     }
 
@@ -40,7 +40,7 @@ class CartController extends Controller
                 'products' => $cart->products,
             ], 200);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch cart' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch cart' .' '. $e->getMessage(), false, null, 500);
         }
     }
 

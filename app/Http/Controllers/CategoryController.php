@@ -14,6 +14,33 @@ use Throwable;
 
 class CategoryController extends Controller
 {
+    public function getSubCategories($categoryId)
+    {
+        try {
+            $category = Category::findOrFail($categoryId);
+            $subCategories = $this->getAllChildren($category);
+
+            return Helper::responseData('Subcategories found', true, $subCategories, Response::HTTP_OK);
+        } catch (ModelNotFoundException $e) {
+            return Helper::responseData('Category not found', false, null, 404);
+        } catch (Throwable $e) {
+            return Helper::responseData('Failed to fetch subcategories: ' .' '. $e->getMessage(), false, null, 500);
+        }
+    }
+
+
+    private function getAllChildren($category)
+    {
+        $children = $category->children()->get();
+        $allChildren = $children->toArray();
+
+        foreach ($children as $child) {
+            $allChildren = array_merge($allChildren, $this->getAllChildren($child));
+        }
+
+        return $allChildren;
+    }
+
     public function list()
     {
         try {
@@ -26,7 +53,7 @@ class CategoryController extends Controller
                 ? Helper::responseData('No Categories Found', false, null, 404)
                 : Helper::responseData('Categories found', true, $categoryResources, Response::HTTP_OK);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch categories' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch categories' .' '. $e->getMessage(), false, null, 500);
         }
     }
 
@@ -46,7 +73,7 @@ class CategoryController extends Controller
             return Helper::responseData('Category Added Successfully', true, new CategoryResource($category), Response::HTTP_OK);
         } catch (Throwable $e) {
             DB::rollBack();
-            return Helper::responseData('Failed to add category' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to add category' .' '. $e->getMessage(), false, null, 500);
         }
     }
 
@@ -58,7 +85,7 @@ class CategoryController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Category not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch category' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch category' .' '. $e->getMessage(), false, null, 500);
         }
     }
 
@@ -82,7 +109,7 @@ class CategoryController extends Controller
             return Helper::responseData('Category not found', false, null, 404);
         } catch (Throwable $e) {
             DB::rollBack();
-            return Helper::responseData('Failed to update category' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to update category' .' '. $e->getMessage(), false, null, 500);
         }
     }
 
@@ -96,7 +123,8 @@ class CategoryController extends Controller
         } catch (ModelNotFoundException $e) {
             return Helper::responseData('Category not found', false, null, 404);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to delete category' . $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to delete category' .' '. $e->getMessage(), false, null, 500);
         }
     }
+
 }

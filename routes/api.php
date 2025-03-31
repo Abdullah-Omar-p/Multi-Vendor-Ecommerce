@@ -59,6 +59,7 @@ Route::prefix('cart')->group(function (){
 Route::prefix('category')->group(function () {
     Route::get('/', [CategoryController::class, 'list']);
     Route::get('find/{categoryId}', [CategoryController::class, 'show']);
+    Route::get('/{categoryId}/subcategories', [CategoryController::class,'getSubCategories']);
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('create', [CategoryController::class, 'store']);
