@@ -1,0 +1,349 @@
+{
+	"info": {
+		"_postman_id": "65c4d754-8328-468f-8d2b-afce91bfeb92",
+		"name": "Permissions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31408697"
+	},
+	"item": [
+		{
+			"name": "get permissions",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/permissions",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"permissions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "users of role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/permissions/permissions/list-users-by-role/super-admin",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"permissions",
+						"permissions",
+						"list-users-by-role",
+						"super-admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user's roles",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/permissions/permissions/check-user-roles-permissions/1",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"permissions",
+						"permissions",
+						"check-user-roles-permissions",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get roles",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/permissions/roles",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"permissions",
+						"roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "adminr",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/permissions/permissions/create-role",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"permissions",
+						"permissions",
+						"create-role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add permission to role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "role_id",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "permission",
+							"value": "any-fucken-permission",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/permissions/permissions/assign-permissions-to-role",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"permissions",
+						"permissions",
+						"assign-permissions-to-role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add role to user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "role",
+							"value": "customer",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "45",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/permissions/permissions/assign-role-to-user",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"permissions",
+						"permissions",
+						"assign-role-to-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove role from user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "role",
+							"value": "customer",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "45",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/permissions/permissions/remove-role-from-user",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"permissions",
+						"permissions",
+						"remove-role-from-user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "revoke permission from role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "role_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "permission",
+							"value": "any-fucken-permission",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/permissions/permissions/revoke-permissions-from-role",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"permissions",
+						"permissions",
+						"revoke-permissions-from-role"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

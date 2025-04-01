@@ -1,0 +1,235 @@
+{
+	"info": {
+		"_postman_id": "34694c02-43ba-474c-b875-025e27b69ec1",
+		"name": "Offer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31408697"
+	},
+	"item": [
+		{
+			"name": "list",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/offer/",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"offer",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "price",
+							"value": "234",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "lkfdajfdak",
+							"type": "text"
+						},
+						{
+							"key": "about",
+							"value": "fkadlj;iowpuerio",
+							"type": "text"
+						},
+						{
+							"key": "custom",
+							"value": "public",
+							"type": "text"
+						},
+						{
+							"key": "no_pieces",
+							"value": "12",
+							"type": "text"
+						},
+						{
+							"key": "store_id",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "media",
+							"type": "file",
+							"src": "/D:/Programs/wallpaperflare.com_wallpaper.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/offer/create/",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"offer",
+						"create",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find by id",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/offer/find/108",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"offer",
+						"find",
+						"108"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "price",
+							"value": "555",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/offer/update/1",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"offer",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/offer/delete/23",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"offer",
+						"delete",
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "related orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/offer/orders/1",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"offer",
+						"orders",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "related products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/offer/products/1",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"offer",
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

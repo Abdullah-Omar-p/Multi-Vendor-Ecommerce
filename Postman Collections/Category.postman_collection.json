@@ -1,0 +1,203 @@
+{
+	"info": {
+		"_postman_id": "f4728ba5-6639-4cfa-ac04-f0609b6058b1",
+		"name": "Category",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31408697"
+	},
+	"item": [
+		{
+			"name": "list",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/category",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "parent_id",
+							"value": "43",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "electronics",
+							"type": "text"
+						},
+						{
+							"key": "media",
+							"type": "file",
+							"src": "/D:/Programs/wallpaperflare.com_wallpaper.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/category/create",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"category",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find by id",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/category/find/41",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"category",
+						"find",
+						"41"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "parent_id",
+							"value": "33",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "new electronics category",
+							"type": "text"
+						},
+						{
+							"key": "media",
+							"type": "file",
+							"src": "/D:/Programs/wallpaperflare.com_wallpaper.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/category/update/41",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"category",
+						"update",
+						"41"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/category/delete/32",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"category",
+						"delete",
+						"32"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sub Categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/category/31/subcategories",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"category",
+						"31",
+						"subcategories"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

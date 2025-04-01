@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "70550b01-a6b0-4600-bd9a-392c20ff48de",
+		"name": "Comment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31408697"
+	},
+	"item": [
+		{
+			"name": "Get",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/comment",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "content",
+							"value": "new anything",
+							"type": "text"
+						},
+						{
+							"key": "product_id",
+							"value": "33",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/comment/create",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"comment",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "content",
+							"value": "new fucken contenet",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/comment/update/17",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"comment",
+						"update",
+						"17"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find by id",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/comment/find/25",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"comment",
+						"find",
+						"25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/comment/delete/22",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"comment",
+						"delete",
+						"22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "related product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/comment/31/product",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"comment",
+						"31",
+						"product"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

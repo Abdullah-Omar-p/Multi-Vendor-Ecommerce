@@ -1,0 +1,214 @@
+{
+	"info": {
+		"_postman_id": "3389d200-f525-42da-8f2a-9272c2adeb72",
+		"name": "Store",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31408697"
+	},
+	"item": [
+		{
+			"name": "list",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/store/",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"store",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "store name",
+							"type": "text"
+						},
+						{
+							"key": "about_store",
+							"value": "any fucken thing",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "48927429",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "first of gemy",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "dqwweq@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "services",
+							"value": "electronics & phones",
+							"type": "text"
+						},
+						{
+							"key": "media",
+							"type": "file",
+							"src": "/D:/Programs/wallpaperflare.com_wallpaper (1).jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/store/create/",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"store",
+						"create",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/store/find/12",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"store",
+						"find",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "kjfda",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "4294729",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/store/update/12",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"store",
+						"update",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/store/delete/12",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"store",
+						"delete",
+						"12"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

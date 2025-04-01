@@ -1,0 +1,202 @@
+{
+	"info": {
+		"_postman_id": "c99058a7-e72e-4702-abfb-12116e1b2a10",
+		"name": "Order",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31408697"
+	},
+	"item": [
+		{
+			"name": "create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "store_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "price",
+							"value": "4434",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "nasr city",
+							"type": "text"
+						},
+						{
+							"key": "product_id[0]",
+							"value": "1",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "product_id[1]",
+							"value": "2",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "product_id[2]",
+							"value": "3",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "offer_id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/order/create/",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"order",
+						"create",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/order/",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"order",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/order/find/34",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"order",
+						"find",
+						"34"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancel order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/order/cancel/11",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"order",
+						"cancel",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "related products",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/order/products/1",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"order",
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "fa661bcf-e30b-4f84-8835-e1a6da15352b",
+		"name": "Auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31408697"
+	},
+	"item": [
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "superadmin@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/auth/login",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{Url}}/api/auth/logout",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reset password code",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "abdullahomar@test.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/auth/password/email",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"password",
+						"email"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "set new password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "token",
+							"value": "465338",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "abdullahomar@test.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/auth/password/reset",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"password",
+						"reset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "f_name",
+							"value": "abdullah",
+							"type": "text"
+						},
+						{
+							"key": "l_name",
+							"value": "omar",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "aboodi@test.com",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "01144393582",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "male",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "23",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "$lsalam,Cairo,Egypt",
+							"type": "text"
+						},
+						{
+							"key": "token",
+							"value": "574241",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/auth/register",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send REgister Code",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "aboodi@test.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/auth/check-email",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"check-email"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

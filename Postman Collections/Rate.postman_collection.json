@@ -1,0 +1,185 @@
+{
+	"info": {
+		"_postman_id": "bbc87ada-c958-420f-a27e-857e9b9f5177",
+		"name": "Rate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31408697"
+	},
+	"item": [
+		{
+			"name": "list",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/rate/",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"rate",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "rate",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "product_id",
+							"value": "32",
+							"type": "text"
+						},
+						{
+							"key": "comment_id",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/rate/create/",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"rate",
+						"create",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find by id",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/rate/find/12",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"rate",
+						"find",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "rate",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "comment_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "product_id",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/rate/update/2",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"rate",
+						"update",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/rate/delete/2",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"rate",
+						"delete",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

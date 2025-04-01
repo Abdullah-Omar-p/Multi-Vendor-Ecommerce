@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "ceb8df24-e927-449c-8f66-d4067d8188e1",
+		"name": "Product",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31408697"
+	},
+	"item": [
+		{
+			"name": "list",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{Url}}/api/product/",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"product",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "price",
+							"value": "422",
+							"type": "text"
+						},
+						{
+							"key": "category_id",
+							"value": "43",
+							"type": "text"
+						},
+						{
+							"key": "store_id",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "product name",
+							"type": "text"
+						},
+						{
+							"key": "available_pieces",
+							"value": "323",
+							"type": "text"
+						},
+						{
+							"key": "media",
+							"type": "file",
+							"src": "postman-cloud:///1f00ce87-5eeb-46d0-8900-5cc4fafea968"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Url}}/api/product/create/",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"product",
+						"create",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "find by id",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/product/find/1",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"product",
+						"find",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{Url}}/api/product/update/4",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"product",
+						"update",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Url}}/api/product/delete/4",
+					"host": [
+						"{{Url}}"
+					],
+					"path": [
+						"api",
+						"product",
+						"delete",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
