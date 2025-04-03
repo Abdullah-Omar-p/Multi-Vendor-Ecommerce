@@ -1,4 +1,4 @@
-# [ [Multi-Vendor E-Commerce System 🛒 API Architecture 🌐](#) ]
+# [ [Multi-Vendor E-Commerce System API Architecture 🌐](#) ]
 
 ## Connect with the Developer
 
