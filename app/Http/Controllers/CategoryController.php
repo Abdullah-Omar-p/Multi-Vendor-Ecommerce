@@ -30,9 +30,9 @@ class CategoryController extends Controller
             }
             return Helper::responseData('Subcategories with products found', true, $result, Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return Helper::responseData('Category not found', false, null, 404);
+            return Helper::responseData('Category not found', false, null, Response::HTTP_NOT_FOUND);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch subcategories with products: ' .' '. $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch subcategories with products: ' .' '. $e->getMessage(), false, null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -93,9 +93,9 @@ class CategoryController extends Controller
             $category = Category::with('media')->findOrFail($categoryId);
             return Helper::responseData('Category found', true, CategoryResource::make($category), Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return Helper::responseData('Category not found', false, null, 404);
+            return Helper::responseData('Category not found', false, null, Response::HTTP_NOT_FOUND);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to fetch category' .' '. $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to fetch category' .' '. $e->getMessage(), false, null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -131,9 +131,9 @@ class CategoryController extends Controller
             $category->delete();
             return Helper::responseData('Category Deleted', true, null, Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
-            return Helper::responseData('Category not found', false, null, 404);
+            return Helper::responseData('Category not found', false, null, Response::HTTP_NOT_FOUND);
         } catch (Throwable $e) {
-            return Helper::responseData('Failed to delete category' .' '. $e->getMessage(), false, null, 500);
+            return Helper::responseData('Failed to delete category' .' '. $e->getMessage(), false, null, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
